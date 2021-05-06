@@ -2,8 +2,9 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Menu.module.scss';
 import Header from '../Header/Header';
+import Button from '../Button/Button';
 
-const Menu = () => (
+const Menu = ({ openModal }) => (
     <>
         <div className={styles.nav}>
             <Header/>
@@ -65,9 +66,9 @@ const Menu = () => (
                         className={styles.navItemLink} 
                         to="/sunday">Sunday</NavLink>
                     </li>
-            
                 </ul>
             </nav>
+            <Button onClick={openModal}>Add</Button>
         </div>
     </>
 ); 
