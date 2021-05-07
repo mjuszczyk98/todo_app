@@ -1,0 +1,33 @@
+.wrapper {
+    padding: 70px 80px 50px;
+    top: 15%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 60vw;
+    background-color: #fff;
+    box-shadow: 0 20px 40px -5px rgba(rgb(46, 46, 46), .3);
+    border-radius: 25px;
+    position: fixed;
+  }
+.title{
+    color: #16213E;
+}
+.button{
+    float: right;
+}
+.closeButton{
+    width: 75px;
+    height: 30px;
+    border: 2px solid #E94560;
+    font-weight: 600;
+    color: #E94560;
+    // margin: 0 auto 0 auto;
+    background: none;
+    cursor: pointer;
+    border-radius: 7.5px;
+}
+.closeButton:hover{
+    color: #fff;
+    background-color: #E94560;
+}

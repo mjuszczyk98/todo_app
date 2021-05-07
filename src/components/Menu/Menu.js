@@ -4,7 +4,7 @@ import styles from './Menu.module.scss';
 import Header from '../Header/Header';
 import Button from '../Button/Button';
 
-const Menu = ({ openModal }) => (
+const Menu = ({ openPopUp }) => (
     <>
         <div className={styles.nav}>
             <Header/>
@@ -68,7 +68,7 @@ const Menu = ({ openModal }) => (
                     </li>
                 </ul>
             </nav>
-            <Button onClick={openModal}>Add</Button>
+            <Button onClick={openPopUp}>Add</Button>
         </div>
     </>
 ); 

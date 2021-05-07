@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './index.css';
 import Menu from '../../components/Menu/Menu';
+import PopUp from '../../components/PopUp/PopUp'
 import NotesView from '../Notes/NotesView';
 import MondayView from '../Monday/MondayView';
 import TuesdayView from '../Tuesday/TuesdayView';
@@ -12,13 +13,24 @@ import SaturdayView from '../Saturday/SaturdayView';
 import SundayView from '../Sunday/SundayView';
 
 class Root extends React.Component{
-    openModal = () =>{
-        console.log('Add Item');
+    state = {
+        isPopUpOpen : false,
+    };
+    openPopUp = () =>{
+        this.setState({
+            isPopUpOpen: true,
+        })
+    }
+    closePopUp = () =>{
+        this.setState({
+            isPopUpOpen: false,
+        })
     }
         render(){
+            const {isPopUpOpen} = this.state;
             return(
                 <BrowserRouter>
-                    <Menu openModal={this.openModal}/>
+                    <Menu openPopUp={this.openPopUp}/>
                     <Switch>
                         <Route exact path='/' component={NotesView} />
                         <Route path='/monday' component={MondayView} />
@@ -29,6 +41,7 @@ class Root extends React.Component{
                         <Route path='/saturday' component={SaturdayView} />
                         <Route path='/sunday' component={SundayView} />
                     </Switch>
+                {isPopUpOpen && <PopUp closePopUp={this.closePopUp} />}
                 </BrowserRouter>
             );
         }   
