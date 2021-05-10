@@ -8,7 +8,7 @@ const PopUp = ({ closePopUp }) => (
         <div className={styles.button}>
             <Button className={styles.closeButton} onClick={closePopUp}>Close</Button>
         </div>
-        <h1 className={styles.title}>Add New Content</h1>
+        
         <Form />
     </div>
 )
