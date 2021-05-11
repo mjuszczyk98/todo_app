@@ -3,38 +3,60 @@ import styles from './Form.module.scss';
 import Input from '../Input/Input';
 import Button from '../Button/Button'
 import RadioInput from './RadioInput';
-// import { types } from 'node-sass';
+import AppContext from '../../context';
+
 
 const radioTypes = {
-    notes: "Add new Note",
-    monday: "Add new Monday Task",
-    tuesday: "Add new Tuesday Task",
-    wednesday: "Add new Wednesday Task",
-    thursday: "Add new Thursday Task",
-    friday: "Add new Friday Task",
-    saturday: "Add new Saturday Task",
-    sunday: "Add new Sunday Task",
+    notes: "notes",
+    monday: "monday",
+    tuesday: "tuesday",
+    wednesday: "wednesday",
+    thursday: "thursday",
+    friday: "friday",
+    saturday: "saturday",
+    sunday: "sunday",
+    // notes: "Add new Note",
+    // monday: "Add new Monday Task",
+    // tuesday: "Add new Tuesday Task",
+    // wednesday: "Add new Wednesday Task",
+    // thursday: "Add new Thursday Task",
+    // friday: "Add new Friday Task",
+    // saturday: "Add new Saturday Task",
+    // sunday: "Add new Sunday Task",
 }
 
 
 class Form extends React.Component{
     state = {
         type: radioTypes.notes,
+        title: '',
+        description: '',
     }
+    
     radioStateChange = type => {
         this.setState({
           type: type,
-          title: "",
+
+        });
+      };
+      handleInputChange = e => {
+        this.setState({
+          [e.target.name]: e.target.value,
         });
       };
 
     render(){
         const { type } = this.state;
         return(
+        <AppContext.Consumer>
+            {context => (
             <div className={styles.wrapper}>
                 <h1 className={styles.title}>{type}</h1>
-
-                    <form className={styles.form} autoComplete="off">
+                    <form 
+                    className={styles.form} 
+                    autoComplete="off" 
+                    onSubmit={(e) => context.addNewItem(e, this.state)}
+                    >
                         <div className={styles.radio}>
                             <div className={styles.radioOne}>
                         <RadioInput 
@@ -88,11 +110,21 @@ class Form extends React.Component{
                         </div>
                         </div>
                             
-                        <Input name = 'title' label = 'title'/>
+                        <Input 
+                        name = 'title' 
+                        label = 'title'
+                        value ={this.state.title}
+                        onChange={this.handleInputChange}
+                        maxLength={30}
+                        />
                         {type === radioTypes.notes ? 
                         (<Input tag="textarea"
                             name="description"
-                            label="Description"/>)
+                            label="Description"
+                            value={this.state.description}
+                            onChange={this.handleInputChange}
+                            maxLength={400}
+                            />)
                             :
                             null
                         }
@@ -101,6 +133,9 @@ class Form extends React.Component{
                         </div>
                     </form>
                 </div>
+        
+            )}
+        </AppContext.Consumer> 
         )
     }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './index.css';
+import AppContext from '../../context'
 import Menu from '../../components/Menu/Menu';
 import PopUp from '../../components/PopUp/PopUp'
 import NotesView from '../Notes/NotesView';
@@ -14,8 +15,28 @@ import SundayView from '../Sunday/SundayView';
 
 class Root extends React.Component{
     state = {
+        notes: [],
+        monday: [],
+        tuesday: [],
+        wednesday: [],
+        thursday: [],
+        friday: [],
+        saturday: [],
+        sunday: [],
         isPopUpOpen : false,
     };
+
+    addNewItem = (e, newItem) => {
+        e.preventDefault();
+
+        this.setState(prevState => ({
+            [newItem.type]: [...prevState[newItem.type], newItem],
+          }));
+          
+          this.closePopUp();
+
+    };
+
     openPopUp = () =>{
         this.setState({
             isPopUpOpen: true,
@@ -26,10 +47,15 @@ class Root extends React.Component{
             isPopUpOpen: false,
         })
     }
-        render(){
-            const {isPopUpOpen} = this.state;
-            return(
-                <BrowserRouter>
+    render(){
+        const {isPopUpOpen} = this.state;
+        const contextElements = {
+            addNewItem: this.addNewItem,
+            ...this.state,
+        }
+        return(
+            <BrowserRouter>
+                <AppContext.Provider value={contextElements}>
                     <Menu openPopUp={this.openPopUp}/>
                     <Switch>
                         <Route exact path='/' component={NotesView} />
@@ -41,10 +67,11 @@ class Root extends React.Component{
                         <Route path='/saturday' component={SaturdayView} />
                         <Route path='/sunday' component={SundayView} />
                     </Switch>
-                {isPopUpOpen && <PopUp closePopUp={this.closePopUp} />}
-                </BrowserRouter>
-            );
-        }   
+                    {isPopUpOpen && <PopUp closePopUp={this.closePopUp} />}
+                </AppContext.Provider>
+            </BrowserRouter>
+        );
+    }   
 }
 
 
