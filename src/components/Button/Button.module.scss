@@ -8,8 +8,8 @@
     background: none;
     cursor: pointer;
     border-radius: 7.5px;
-}
-.button:hover{
-    color: #fff;
-    background-color: #E94560;
+    &:hover {
+        color: #fff;
+        background-color: #E94560;
+    }
 }
